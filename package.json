@@ -4,6 +4,7 @@
   "description": "HTML5 subliminal text and images",
   "main": "dist/index.js",
   "scripts": {
+    "dev": "nodemon src/index.js",
     "prebuild": "rimraf dist",
     "build": "babel --copy-files --out-dir dist --ignore *.test.js src",
     "lint": "eslint src",
@@ -15,7 +16,7 @@
     "adverts",
     "html5"
   ],
-  "files":[
+  "files": [
     "dist"
   ],
   "repository": {
@@ -32,6 +33,7 @@
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.6",
     "chai": "^4.2.0",
-    "mocha": "^7.1.2"
+    "mocha": "^7.1.2",
+    "nodemon": "^2.0.4"
   }
 }
