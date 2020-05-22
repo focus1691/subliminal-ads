@@ -1,6 +1,6 @@
 function SubliminalMessages() {
     this.StandAloneMessage = require('./StandaloneMessage');
-    this.StaticMessage = require('./StaticMessage');
+    this.ImageMessage = require('./ImageMessage');
 }
 
 module.exports = {
