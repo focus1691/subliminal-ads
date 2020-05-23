@@ -8,6 +8,7 @@
  * @param {boolean} random — Display messages randomly
  */
 function Message(messages, duration, color, repeat, random) {
+	this.index = 0;
 	this.messages = messages;
 	this.duration = duration;
 	this.color = color;
@@ -32,7 +33,19 @@ Message.prototype.show = function() {
 	//! Middle of screen
 	let x = (this.canvas.width - this.ctx.measureText(this.messages[0]).width) / 2; // Use the text size (px) to horizontally center text 
 	let y = this.canvas.height / 2;
-	this.ctx.fillText(this.messages[0], x, y);
+
+	// Message is a string
+	if (typeof this.messages[this.index] === "string") {
+		let msg = this.messages[this.index];
+		this.ctx.fillText(msg, x, y);
+	}
+	// Message is an image
+	else if (this.messages[this.index].nodeName === "IMG") {
+		let img = this.messages[this.index];
+		this.ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height);
+	}
+
+	this.index = (this.index + 1) % this.messages.length; // loop from front to back 
 
 	setTimeout(() => this.hide(), this.duration); // Message only visible for 'duration'
 }
