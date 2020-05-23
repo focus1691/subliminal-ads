@@ -20,8 +20,10 @@ function Message(messages, width, height, duration, color, repeat, random) {
 	this.canvas = document.createElement("canvas");
 	this.canvas.style.width = width;
 	this.canvas.style.height = height;
+	this.canvas.style.position = 'absolute';
+	this.canvas.style.zIndex = 1147483647;
   
-	document.body.appendChild(this.canvas);
+	document.body.insertBefore(this.canvas, document.body.firstChild);
 }
 
 /**

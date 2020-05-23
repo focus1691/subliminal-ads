@@ -14,7 +14,7 @@ import { validateMessages, replaceImages } from "../utils/Validator";
  * @param {boolean} repeat — Repeat messages
  * @param {boolean} random — Display messages randomly
  */
-function FixedMessage({ messages = [], width='100%', height='80vh', color = '#000', duration = 250, interval = 10000, repeat = false, random = false }) {
+function FixedMessage({ messages = [], width='100%', height='100vh', color = '#000', duration = 250, interval = 10000, repeat = false, random = false }) {
 	this.isPlaying = false;
 	this.messages = messages;
 	this.width = width;
@@ -24,7 +24,7 @@ function FixedMessage({ messages = [], width='100%', height='80vh', color = '#00
 	this.interval = interval;
 	this.repeat = repeat;
 	messages = replaceImages(messages);
-	this.message = new Message(messages, this.duration, color, repeat);
+	this.message = new Message(messages, width, height, this.duration, color, repeat);
 }
 
 /**
@@ -84,4 +84,4 @@ FixedMessage.prototype.stop = function(delay) {
 	return this;
 }
 
-module.exports = FixedMessage;
+export default FixedMessage;
