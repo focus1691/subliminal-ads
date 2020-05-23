@@ -1,5 +1,5 @@
 import Message from "../display/Message";
-import { validURL, replaceImages } from "../utils/Validator";
+import { validateMessages, replaceImages } from "../utils/Validator";
 
 /**
  * The standAloneMessage is a subliminal message type that takes only text as the message type, either
@@ -26,31 +26,58 @@ function StandAloneMessage({ messages = [], color = '#000', duration = 250, inte
 /**
  * Start playing the messages
  */
-StandAloneMessage.prototype.start = function() {
-	try {
-		//! Messages must have some text to use in the canvas: non-empty Array / non-empty String
-		if (typeof this.messages !== "string" && !Array.isArray(this.messages)) throw new Error('Enter a string or array.');
-		if (typeof this.messages === 'string' && this.messages.length <= 0) throw new Error('Enter a message with 0 or more characters.');
-		else if (Array.isArray(this.messages) && this.messages.length <= 0) throw new Error('Enter a valid list.');
+StandAloneMessage.prototype.start = function(delay) {
+	if (delay) setTimeout(startMessageSequence.bind(this), delay || 0);
+	else startMessageSequence();
 
-		if (!this.isPlaying) {
-			this.id = setInterval(() => this.message.show(), this.interval); // This is where the action begins
-			this.isPlaying = true;
+	function startMessageSequence() {
+		try {
+			validateMessages(this.messages);
+	
+			if (!this.isPlaying) {
+				this.id = setInterval(() => this.message.show(), this.interval); // This is where the action begins
+				this.isPlaying = true;
+			}
+		} catch (err) {
+			throw new Error(err.message);
 		}
-	} catch (err) {
-		throw new Error(err.message);
 	}
 }
 
 /**
- * Stop playing the messages
+ * Play the message only one time
  */
-StandAloneMessage.prototype.stop = function() {
-	if (this.isPlaying) {
-		clearInterval(this.id);
-		this.message.hide();
-		this.isPlaying = false;
+StandAloneMessage.prototype.once = function(delay) {
+	if (delay) setTimeout(playMessageOnce.bind(this), delay);
+	else playMessageOnce();
+
+	function playMessageOnce() {
+		try {
+			validateMessages(this.messages);
+	
+			if (!this.isPlaying) {
+				this.message.show();
+			}
+		} catch (err) {
+			throw new Error(err.message);
+		}
 	}
+}
+
+/**
+ * Stop playing the messages, cleanup the canvas
+ */
+StandAloneMessage.prototype.stop = function(delay) {
+	if (delay) setTimeout(stopMessagePlaying.bind(this), delay);
+	else stopMessagePlaying();
+
+	function stopMessagePlaying() {
+		if (this.isPlaying) {
+			clearInterval(this.id);
+			this.isPlaying = false;
+		}
+	}
+	return this;
 }
 
 module.exports = StandAloneMessage;

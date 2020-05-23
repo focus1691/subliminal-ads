@@ -42,7 +42,7 @@ Message.prototype.show = function() {
 	// Message is an image
 	else if (this.messages[this.index].nodeName === "IMG") {
 		let img = this.messages[this.index];
-		this.ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height);
+		this.ctx.drawImage(img, -10, 0, this.canvas.width, this.canvas.height);
 	}
 
 	this.index = (this.index + 1) % this.messages.length; // loop from front to back 
