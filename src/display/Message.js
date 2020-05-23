@@ -2,12 +2,14 @@
  * The subliminal message that contains the canvas it will be displayed on and other settings.
  * 
  * @param {Array} messages — List of messsages
+ * @param {string} width — Message width
+ * @param {string} height — Message height
  * @param {number} duration — How long to display the message
  * @param {string} color — Message color
  * @param {boolean} repeat — Repeat messages
  * @param {boolean} random — Display messages randomly
  */
-function Message(messages, duration, color, repeat, random) {
+function Message(messages, width, height, duration, color, repeat, random) {
 	this.index = 0;
 	this.messages = messages;
 	this.duration = duration;
@@ -16,8 +18,8 @@ function Message(messages, duration, color, repeat, random) {
 	this.random = random;
     
 	this.canvas = document.createElement("canvas");
-	this.canvas.style.width = '100%';
-	this.canvas.style.width = '80vh';
+	this.canvas.style.width = width;
+	this.canvas.style.height = height;
   
 	document.body.appendChild(this.canvas);
 }

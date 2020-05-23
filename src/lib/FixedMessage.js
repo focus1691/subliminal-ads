@@ -6,15 +6,19 @@ import { validateMessages, replaceImages } from "../utils/Validator";
  * and Array of messages or a string.
  * 
  * @param {Array} messages — List of messsages
+ * @param {string} width — Message width
+ * @param {string} height — Message height
  * @param {string} color — Message color
  * @param {number} duration — How long (ms) to display the message for
  * @param {number} interval — Time (ms) to show / hide messages
  * @param {boolean} repeat — Repeat messages
  * @param {boolean} random — Display messages randomly
  */
-function FixedMessage({ messages = [], color = '#000', duration = 250, interval = 10000, repeat = false, random = false }) {
+function FixedMessage({ messages = [], width='100%', height='80vh', color = '#000', duration = 250, interval = 10000, repeat = false, random = false }) {
 	this.isPlaying = false;
 	this.messages = messages;
+	this.width = width;
+	this.height = height;
 	this.color = color;
 	this.duration = duration;
 	this.interval = interval;
@@ -27,8 +31,7 @@ function FixedMessage({ messages = [], color = '#000', duration = 250, interval 
  * Start playing the messages
  */
 FixedMessage.prototype.start = function(delay) {
-	if (delay) setTimeout(startMessageSequence.bind(this), delay || 0);
-	else startMessageSequence();
+	setTimeout(startMessageSequence.bind(this), delay || 0);
 
 	function startMessageSequence() {
 		try {
@@ -42,14 +45,14 @@ FixedMessage.prototype.start = function(delay) {
 			throw new Error(err.message);
 		}
 	}
+	return this;
 }
 
 /**
  * Play the message only one time
  */
 FixedMessage.prototype.once = function(delay) {
-	if (delay) setTimeout(playMessageOnce.bind(this), delay);
-	else playMessageOnce();
+	setTimeout(playMessageOnce.bind(this), delay || 0);
 
 	function playMessageOnce() {
 		try {
@@ -62,6 +65,7 @@ FixedMessage.prototype.once = function(delay) {
 			throw new Error(err.message);
 		}
 	}
+	return this;
 }
 
 /**
