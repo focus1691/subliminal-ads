@@ -2,7 +2,7 @@ import Message from "../display/Message";
 import { validateMessages, replaceImages } from "../utils/Validator";
 
 /**
- * The standAloneMessage is a subliminal message type that takes only text as the message type, either
+ * The FixedMessage is a subliminal message type that takes only text as the message type, either
  * and Array of messages or a string.
  * 
  * @param {Array} messages — List of messsages
@@ -12,7 +12,7 @@ import { validateMessages, replaceImages } from "../utils/Validator";
  * @param {boolean} repeat — Repeat messages
  * @param {boolean} random — Display messages randomly
  */
-function StandAloneMessage({ messages = [], color = '#000', duration = 250, interval = 10000, repeat = false, random = false }) {
+function FixedMessage({ messages = [], color = '#000', duration = 250, interval = 10000, repeat = false, random = false }) {
 	this.isPlaying = false;
 	this.messages = messages;
 	this.color = color;
@@ -26,7 +26,7 @@ function StandAloneMessage({ messages = [], color = '#000', duration = 250, inte
 /**
  * Start playing the messages
  */
-StandAloneMessage.prototype.start = function(delay) {
+FixedMessage.prototype.start = function(delay) {
 	if (delay) setTimeout(startMessageSequence.bind(this), delay || 0);
 	else startMessageSequence();
 
@@ -47,7 +47,7 @@ StandAloneMessage.prototype.start = function(delay) {
 /**
  * Play the message only one time
  */
-StandAloneMessage.prototype.once = function(delay) {
+FixedMessage.prototype.once = function(delay) {
 	if (delay) setTimeout(playMessageOnce.bind(this), delay);
 	else playMessageOnce();
 
@@ -67,7 +67,7 @@ StandAloneMessage.prototype.once = function(delay) {
 /**
  * Stop playing the messages, cleanup the canvas
  */
-StandAloneMessage.prototype.stop = function(delay) {
+FixedMessage.prototype.stop = function(delay) {
 	if (delay) setTimeout(stopMessagePlaying.bind(this), delay);
 	else stopMessagePlaying();
 
@@ -80,4 +80,4 @@ StandAloneMessage.prototype.stop = function(delay) {
 	return this;
 }
 
-module.exports = StandAloneMessage;
+module.exports = FixedMessage;
