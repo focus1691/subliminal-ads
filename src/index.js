@@ -1,3 +1,5 @@
-module.exports = {
-	FixedMessage: require('./lib/FixedMessage')
-};
+import FixedMessage from "./lib/FixedMessage";
+
+export {
+  FixedMessage
+}
