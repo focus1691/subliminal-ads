@@ -10,9 +10,29 @@ The following is taken from a the [WikiPedia page](https://en.wikipedia.org/wiki
 
 It may also be unethical to do this without gaining the consent of your visitors.
 
-## Usage
+## Proprties
 
-```
+| Property | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
+| messages | Array / String | [] | List of messsages |
+| width | String | 100% | Message width |
+| height | String | 100vh | Message height |
+| color | String | #000 | Message color |
+| duration **(ms)** | Number | 250 | How long to show the message |
+| interval **(ms)** | Number | 10000 | display a new message every... |
+| repeat | Boolean | false | Repeat messages |
+| random | Boolean | false | Display messages randomly |
+
+## Methods
+
+| Name | Description |
+| ---- | ----- |
+| start(ms) | Play messages after **ms** offset
+| once(ms) | Play messages once after **ms** offset
+
+## Display Random List of Words
+
+```js
 var fixedMessage = new FixedMessage({
   messages: ["Our company is awesome", "Buy our product"],
   width: '100%',
@@ -23,7 +43,17 @@ var fixedMessage = new FixedMessage({
 }).start(10000);
 ```
 
-This would create the message in the center screen which would show display each message sequentially every 2 seconds for a duration of 50ms. It would start after 10 seconds. You can also pass in paths that link to images as messages to create image messages.
+## Display a Mix of Images / Words Randomly
 
-## Future
-I'd like to make a more flexible message type where you could specify a different interval and duration for each message, and also play certain ones only once, and when scrolled to a certain element.
+```js
+var fixedMessage = new FixedMessage({
+  messages: [ `${window.location.origin}/images/product.png`, `${window.location.origin}/images/heart.png`, "Our company is awesome", "Buy our product"],
+  width: '100%',
+  height: '80vh',
+  color: 'red',
+  duration: '50',
+  interval: 2000,
+}).start(10000);
+```
+
+This would create the message in the center screen which would show display each message sequentially every 2 seconds for a duration of 50ms. It would start after 10 seconds. You can also pass in paths that link to images as messages to create image messages.
