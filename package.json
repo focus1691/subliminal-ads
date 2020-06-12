@@ -1,6 +1,6 @@
 {
   "name": "subliminal-ads",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "HTML5 subliminal text and images",
   "main": "dist/index.js",
   "scripts": {
@@ -20,9 +20,6 @@
   "files": [
     "dist"
   ],
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/traderjosh/subliminal-ads.git"
